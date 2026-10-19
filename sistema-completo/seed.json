@@ -1,0 +1,239 @@
+{
+  "patients": [
+    {
+      "id": "p1",
+      "name": "Mariana Costa",
+      "email": "mariana@example.com",
+      "goal": "Mobilidade e bem-estar",
+      "since": "2026-10-01"
+    },
+    {
+      "id": "p2",
+      "name": "Pedro Almeida",
+      "email": "pedro@example.com",
+      "goal": "Retorno às atividades",
+      "since": "2026-10-05"
+    },
+    {
+      "id": "p3",
+      "name": "Beatriz Santos",
+      "email": "beatriz@example.com",
+      "goal": "Acompanhamento funcional",
+      "since": "2026-10-10"
+    },
+    {
+      "id": "p4",
+      "name": "Lucas Ferreira",
+      "email": "lucas@example.com",
+      "goal": "Mobilidade de ombro",
+      "since": "2026-10-13"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1",
+      "name": "Mobilidade de ombros",
+      "category": "Mobilidade",
+      "duration": 5,
+      "instructions": "Realize os movimentos de ombro demonstrados pelo profissional na consulta. Respeite a amplitude e as orientações da sua prescrição.",
+      "notes": "Exemplo acadêmico. A execução deve ser orientada pelo fisioterapeuta."
+    },
+    {
+      "id": "e2",
+      "name": "Alongamento orientado",
+      "category": "Alongamento",
+      "duration": 4,
+      "instructions": "Siga a sequência de alongamento ensinada pelo fisioterapeuta, observando o posicionamento e o tempo definidos na consulta.",
+      "notes": "Consulte seu profissional em caso de dúvidas."
+    },
+    {
+      "id": "e3",
+      "name": "Exercício de equilíbrio",
+      "category": "Equilíbrio",
+      "duration": 6,
+      "instructions": "Siga a atividade de equilíbrio e as condições de apoio combinadas com o profissional responsável.",
+      "notes": "Ambiente e apoio devem ser definidos pelo fisioterapeuta."
+    },
+    {
+      "id": "e4",
+      "name": "Fortalecimento funcional",
+      "category": "Fortalecimento",
+      "duration": 8,
+      "instructions": "Realize apenas os movimentos, a carga e as repetições orientados pelo fisioterapeuta na avaliação.",
+      "notes": "Carga e repetições são individualizadas."
+    }
+  ],
+  "routines": [
+    {
+      "id": "r1",
+      "patient": "p1",
+      "exercises": [
+        "e1",
+        "e2",
+        "e3"
+      ],
+      "frequency": "Diariamente",
+      "start": "2026-10-05",
+      "end": "2026-11-09",
+      "notes": "Siga as orientações combinadas na consulta.",
+      "active": true
+    },
+    {
+      "id": "r2",
+      "patient": "p2",
+      "exercises": [
+        "e2",
+        "e4"
+      ],
+      "frequency": "Diariamente",
+      "start": "2026-10-09",
+      "end": "2026-11-08",
+      "notes": "Registre como se sentiu após a atividade.",
+      "active": true
+    },
+    {
+      "id": "r3",
+      "patient": "p3",
+      "exercises": [
+        "e1",
+        "e3"
+      ],
+      "frequency": "Diariamente",
+      "start": "2026-10-12",
+      "end": "2026-11-11",
+      "notes": "Rotina de demonstração.",
+      "active": true
+    },
+    {
+      "id": "r4",
+      "patient": "p4",
+      "exercises": [
+        "e1",
+        "e2"
+      ],
+      "frequency": "Diariamente",
+      "start": "2026-10-13",
+      "end": "2026-11-12",
+      "notes": "Rotina de demonstração.",
+      "active": true
+    }
+  ],
+  "logs": [
+    {
+      "id": "l0",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-12",
+      "pain": 6,
+      "comment": "",
+      "author": "Mariana Costa"
+    },
+    {
+      "id": "l1",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-13",
+      "pain": 5,
+      "comment": "",
+      "author": "Mariana Costa"
+    },
+    {
+      "id": "l2",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-14",
+      "pain": 5,
+      "comment": "",
+      "author": "Mariana Costa"
+    },
+    {
+      "id": "l3",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-15",
+      "pain": 4,
+      "comment": "",
+      "author": "Mariana Costa"
+    },
+    {
+      "id": "l4",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-16",
+      "pain": 3,
+      "comment": "",
+      "author": "Mariana Costa"
+    },
+    {
+      "id": "l5",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-17",
+      "pain": 4,
+      "comment": "",
+      "author": "Mariana Costa"
+    },
+    {
+      "id": "l6",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-18",
+      "pain": 3,
+      "comment": "Consegui seguir a rotina combinada.",
+      "author": "Mariana Costa"
+    },
+    {
+      "id": "l8",
+      "patient": "p2",
+      "exercise": "e2",
+      "routine": "r2",
+      "date": "2026-10-19",
+      "pain": 4,
+      "comment": "Registro de exemplo.",
+      "author": "Pedro Almeida"
+    },
+    {
+      "id": "l9",
+      "patient": "p3",
+      "exercise": "e1",
+      "routine": "r3",
+      "date": "2026-10-19",
+      "pain": 2,
+      "comment": "Atividade concluída.",
+      "author": "Beatriz Santos"
+    },
+    {
+      "id": "l10",
+      "patient": "p1",
+      "exercise": "e1",
+      "routine": "r1",
+      "date": "2026-10-19",
+      "pain": 3,
+      "comment": "Rotina iniciada.",
+      "author": "Mariana Costa"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "patient": "p1",
+      "from": "professional",
+      "text": "Olá, Mariana! Sua rotina está disponível. Registre a conclusão e como se sentiu após os exercícios.",
+      "at": "2026-10-19T21:34:06.085Z"
+    },
+    {
+      "id": "m2",
+      "patient": "p1",
+      "from": "patient",
+      "text": "Obrigada! Já consegui consultar os exercícios e vou registrar minha rotina por aqui.",
+      "at": "2026-10-19T21:34:06.085Z"
+    }
+  ]
+}
