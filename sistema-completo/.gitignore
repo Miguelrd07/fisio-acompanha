@@ -3,3 +3,7 @@ __pycache__/
 .pytest_cache/
 *.pyc
 *.log
+.exe-build-env/
+build-exe/
+*.spec
+exe-test-result.json

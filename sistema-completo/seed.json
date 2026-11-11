@@ -1,33 +1,10 @@
 {
+  "_comment": "Datas em dias relativos ao dia em que o banco é criado (0 = hoje, -7 = uma semana atrás). Os registros de atividade são gerados a partir de 'simulate'.",
   "patients": [
-    {
-      "id": "p1",
-      "name": "Mariana Costa",
-      "email": "mariana@example.com",
-      "goal": "Mobilidade e bem-estar",
-      "since": "2026-10-01"
-    },
-    {
-      "id": "p2",
-      "name": "Pedro Almeida",
-      "email": "pedro@example.com",
-      "goal": "Retorno às atividades",
-      "since": "2026-10-05"
-    },
-    {
-      "id": "p3",
-      "name": "Beatriz Santos",
-      "email": "beatriz@example.com",
-      "goal": "Acompanhamento funcional",
-      "since": "2026-10-10"
-    },
-    {
-      "id": "p4",
-      "name": "Lucas Ferreira",
-      "email": "lucas@example.com",
-      "goal": "Mobilidade de ombro",
-      "since": "2026-10-13"
-    }
+    {"id": "p1", "name": "Mariana Costa", "email": "mariana@example.com", "goal": "Mobilidade de ombro e bem-estar", "since": -30},
+    {"id": "p2", "name": "Pedro Almeida", "email": "pedro@example.com", "goal": "Retorno à corrida após lesão no joelho", "since": -24},
+    {"id": "p3", "name": "Beatriz Santos", "email": "beatriz@example.com", "goal": "Equilíbrio e prevenção de quedas", "since": -16},
+    {"id": "p4", "name": "Lucas Ferreira", "email": "lucas@example.com", "goal": "Fortalecimento lombar", "since": -42}
   ],
   "exercises": [
     {
@@ -35,205 +12,103 @@
       "name": "Mobilidade de ombros",
       "category": "Mobilidade",
       "duration": 5,
-      "instructions": "Realize os movimentos de ombro demonstrados pelo profissional na consulta. Respeite a amplitude e as orientações da sua prescrição.",
+      "instructions": "Em pé, com a coluna alinhada, realize círculos lentos com os ombros para frente e para trás. Respeite a amplitude combinada na consulta e não force além do confortável.",
       "notes": "Exemplo acadêmico. A execução deve ser orientada pelo fisioterapeuta."
     },
     {
       "id": "e2",
-      "name": "Alongamento orientado",
+      "name": "Alongamento de cadeia posterior",
       "category": "Alongamento",
       "duration": 4,
-      "instructions": "Siga a sequência de alongamento ensinada pelo fisioterapeuta, observando o posicionamento e o tempo definidos na consulta.",
+      "instructions": "Sentado, com uma perna estendida, incline o tronco à frente mantendo as costas retas até sentir um leve alongamento. Sustente pelo tempo orientado e troque o lado.",
       "notes": "Consulte seu profissional em caso de dúvidas."
     },
     {
       "id": "e3",
-      "name": "Exercício de equilíbrio",
+      "name": "Equilíbrio unipodal",
       "category": "Equilíbrio",
-      "duration": 6,
-      "instructions": "Siga a atividade de equilíbrio e as condições de apoio combinadas com o profissional responsável.",
-      "notes": "Ambiente e apoio devem ser definidos pelo fisioterapeuta."
+      "duration": 3,
+      "instructions": "Próximo a um apoio seguro, fique sobre uma perna por alguns segundos e alterne. Mantenha o olhar à frente e o abdômen levemente contraído.",
+      "notes": "Realize sempre perto de uma parede ou cadeira firme."
     },
     {
       "id": "e4",
-      "name": "Fortalecimento funcional",
+      "name": "Ponte de glúteos",
       "category": "Fortalecimento",
-      "duration": 8,
-      "instructions": "Realize apenas os movimentos, a carga e as repetições orientados pelo fisioterapeuta na avaliação.",
-      "notes": "Carga e repetições são individualizadas."
+      "duration": 6,
+      "instructions": "Deitado de barriga para cima, joelhos dobrados e pés apoiados, eleve o quadril de forma controlada e desça devagar. Faça as séries e repetições combinadas.",
+      "notes": "Interrompa se sentir dor aguda na lombar."
+    },
+    {
+      "id": "e5",
+      "name": "Respiração diafragmática",
+      "category": "Respiração",
+      "duration": 5,
+      "instructions": "Com uma mão no peito e outra no abdômen, inspire pelo nariz expandindo a barriga e solte o ar lentamente pela boca. Mantenha um ritmo tranquilo.",
+      "notes": "Pode ser feito sentado ou deitado."
+    },
+    {
+      "id": "e6",
+      "name": "Agachamento na parede",
+      "category": "Fortalecimento",
+      "duration": 5,
+      "instructions": "Com as costas apoiadas na parede, deslize até uma flexão parcial dos joelhos, sustente e retorne. A profundidade é definida pelo fisioterapeuta.",
+      "notes": "Joelhos alinhados com a ponta dos pés."
     }
   ],
   "routines": [
     {
-      "id": "r1",
-      "patient": "p1",
-      "exercises": [
-        "e1",
-        "e2",
-        "e3"
-      ],
-      "frequency": "Diariamente",
-      "start": "2026-10-05",
-      "end": "2026-11-09",
-      "notes": "Siga as orientações combinadas na consulta.",
-      "active": true
+      "id": "r1", "patient": "p1", "exercises": ["e1", "e2", "e3"], "frequency": "Diariamente",
+      "start": -28, "end": 21, "active": true,
+      "notes": "Faça os exercícios preferencialmente pela manhã. Registre como se sentiu após cada um.",
+      "simulate": {"until": -1, "adherence": 0.85, "pain_from": 7, "pain_to": 3}
     },
     {
-      "id": "r2",
-      "patient": "p2",
-      "exercises": [
-        "e2",
-        "e4"
-      ],
-      "frequency": "Diariamente",
-      "start": "2026-10-09",
-      "end": "2026-11-08",
-      "notes": "Registre como se sentiu após a atividade.",
-      "active": true
+      "id": "r2", "patient": "p2", "exercises": ["e4", "e6", "e2"], "frequency": "Segunda, quarta e sexta",
+      "start": -21, "end": 28, "active": true,
+      "notes": "Intervalo de 48 horas entre as sessões de fortalecimento.",
+      "simulate": {"until": 0, "adherence": 0.9, "pain_from": 6, "pain_to": 2}
     },
     {
-      "id": "r3",
-      "patient": "p3",
-      "exercises": [
-        "e1",
-        "e3"
-      ],
-      "frequency": "Diariamente",
-      "start": "2026-10-12",
-      "end": "2026-11-11",
-      "notes": "Rotina de demonstração.",
-      "active": true
+      "id": "r3", "patient": "p3", "exercises": ["e3", "e5"], "frequency": "Diariamente",
+      "start": -14, "end": 14, "active": true,
+      "notes": "Ambiente iluminado e com apoio próximo.",
+      "simulate": {"until": -3, "adherence": 0.6, "pain_from": 4, "pain_to": 7}
     },
     {
-      "id": "r4",
-      "patient": "p4",
-      "exercises": [
-        "e1",
-        "e2"
-      ],
-      "frequency": "Diariamente",
-      "start": "2026-10-13",
-      "end": "2026-11-12",
-      "notes": "Rotina de demonstração.",
-      "active": true
+      "id": "r4", "patient": "p4", "exercises": ["e2", "e5"], "frequency": "Diariamente",
+      "start": -40, "end": -6, "active": false,
+      "notes": "Fase inicial concluída.",
+      "simulate": {"until": -8, "adherence": 0.8, "pain_from": 8, "pain_to": 4}
+    },
+    {
+      "id": "r5", "patient": "p4", "exercises": ["e4", "e6"], "frequency": "Diariamente",
+      "start": -5, "end": 30, "active": true,
+      "notes": "Nova fase com foco em fortalecimento.",
+      "simulate": {"until": 0, "adherence": 0.95, "pain_from": 4, "pain_to": 3}
     }
   ],
-  "logs": [
-    {
-      "id": "l0",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-12",
-      "pain": 6,
-      "comment": "",
-      "author": "Mariana Costa"
-    },
-    {
-      "id": "l1",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-13",
-      "pain": 5,
-      "comment": "",
-      "author": "Mariana Costa"
-    },
-    {
-      "id": "l2",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-14",
-      "pain": 5,
-      "comment": "",
-      "author": "Mariana Costa"
-    },
-    {
-      "id": "l3",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-15",
-      "pain": 4,
-      "comment": "",
-      "author": "Mariana Costa"
-    },
-    {
-      "id": "l4",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-16",
-      "pain": 3,
-      "comment": "",
-      "author": "Mariana Costa"
-    },
-    {
-      "id": "l5",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-17",
-      "pain": 4,
-      "comment": "",
-      "author": "Mariana Costa"
-    },
-    {
-      "id": "l6",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-18",
-      "pain": 3,
-      "comment": "Consegui seguir a rotina combinada.",
-      "author": "Mariana Costa"
-    },
-    {
-      "id": "l8",
-      "patient": "p2",
-      "exercise": "e2",
-      "routine": "r2",
-      "date": "2026-10-19",
-      "pain": 4,
-      "comment": "Registro de exemplo.",
-      "author": "Pedro Almeida"
-    },
-    {
-      "id": "l9",
-      "patient": "p3",
-      "exercise": "e1",
-      "routine": "r3",
-      "date": "2026-10-19",
-      "pain": 2,
-      "comment": "Atividade concluída.",
-      "author": "Beatriz Santos"
-    },
-    {
-      "id": "l10",
-      "patient": "p1",
-      "exercise": "e1",
-      "routine": "r1",
-      "date": "2026-10-19",
-      "pain": 3,
-      "comment": "Rotina iniciada.",
-      "author": "Mariana Costa"
-    }
+  "comments_low": [
+    "Consegui fazer tudo sem desconforto.",
+    "Me senti bem melhor hoje!",
+    "Movimento ficou mais solto.",
+    "Fiz com calma, tudo certo.",
+    "Senti evolução em relação à semana passada."
+  ],
+  "comments_high": [
+    "Senti um pouco de dor no final.",
+    "Precisei parar no meio para descansar.",
+    "Dia mais difícil, mas concluí.",
+    "Desconforto maior que o normal hoje."
   ],
   "messages": [
-    {
-      "id": "m1",
-      "patient": "p1",
-      "from": "professional",
-      "text": "Olá, Mariana! Sua rotina está disponível. Registre a conclusão e como se sentiu após os exercícios.",
-      "at": "2026-10-19T21:34:06.085Z"
-    },
-    {
-      "id": "m2",
-      "patient": "p1",
-      "from": "patient",
-      "text": "Obrigada! Já consegui consultar os exercícios e vou registrar minha rotina por aqui.",
-      "at": "2026-10-19T21:34:06.085Z"
-    }
+    {"id": "m1", "patient": "p1", "from": "professional", "day": -27, "time": "09:12", "text": "Olá, Mariana! Sua rotina já está disponível no aplicativo. Registre a conclusão e como se sentiu após os exercícios."},
+    {"id": "m2", "patient": "p1", "from": "patient", "day": -27, "time": "19:40", "text": "Oi, Camila! Combinado, vou começar amanhã cedo."},
+    {"id": "m3", "patient": "p1", "from": "professional", "day": -6, "time": "10:05", "text": "Vi que sua dor vem diminuindo. Ótimo trabalho! Vamos manter a mesma rotina."},
+    {"id": "m4", "patient": "p1", "from": "patient", "day": -1, "time": "20:18", "text": "Obrigada! O ombro está bem mais solto."},
+    {"id": "m5", "patient": "p2", "from": "professional", "day": -20, "time": "08:30", "text": "Pedro, lembre de respeitar o intervalo entre as sessões de fortalecimento."},
+    {"id": "m6", "patient": "p2", "from": "patient", "day": -2, "time": "18:02", "text": "Já consigo fazer o agachamento sem incômodo. Quando posso voltar a correr?"},
+    {"id": "m7", "patient": "p3", "from": "patient", "day": -4, "time": "16:45", "text": "Tive mais tontura nos últimos dias durante o exercício de equilíbrio."},
+    {"id": "m8", "patient": "p4", "from": "professional", "day": -5, "time": "11:20", "text": "Lucas, iniciamos a fase de fortalecimento. Qualquer dúvida, me chame por aqui."}
   ]
 }

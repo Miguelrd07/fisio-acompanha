@@ -6,8 +6,10 @@ import hashlib
 import hmac
 import json
 import os
+import random
 import secrets
 import sqlite3
+import sys
 import time
 
 from fastapi import FastAPI, Request, HTTPException
@@ -15,13 +17,14 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 ROOT = Path(__file__).resolve().parent
-DB_PATH = Path(os.environ.get('FISIO_DB', ROOT / 'data' / 'fisioterapia.db'))
+DATA_ROOT = Path(os.environ.get('LOCALAPPDATA', Path.home())) / 'FisioAcompanha' if getattr(sys, 'frozen', False) else ROOT / 'data'
+DB_PATH = Path(os.environ.get('FISIO_DB', DATA_ROOT / 'fisioterapia.db'))
 COOKIE = 'fisio_session'
-BAHIA = timezone(timedelta(hours=-3))
+BRASILIA = timezone(timedelta(hours=-3))
 ATTEMPTS = {}
 
 def today():
-    return datetime.now(BAHIA).date().isoformat()
+    return datetime.now(BRASILIA).date().isoformat()
 
 @contextmanager
 def connect():
@@ -54,23 +57,52 @@ def initialize():
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     with connect() as c:
         c.executescript((ROOT / 'schema.sql').read_text(encoding='utf-8'))
-        if c.execute('SELECT count(*) FROM users').fetchone()[0]:
-            return
-        seed = json.loads((ROOT / 'seed.json').read_text(encoding='utf-8'))
-        encoded = password_hash('demo123')
-        c.execute('INSERT INTO users VALUES (?,?,?,?,?)', ('professional1', 'Camila Oliveira', 'camila@example.com', encoded, 'professional'))
-        for p in seed['patients']:
-            c.execute('INSERT INTO users VALUES (?,?,?,?,?)', (p['id'], p['name'], p['email'], encoded, 'patient'))
-            c.execute('INSERT INTO patients VALUES (?,?,?,?)', (p['id'], 'professional1', p['goal'], p['since']))
-        for e in seed['exercises']:
-            c.execute('INSERT INTO exercises VALUES (?,?,?,?,?,?,?)', (e['id'], 'professional1', e['name'], e['category'], e['duration'], e['instructions'], e['notes']))
-        for r in seed['routines']:
-            c.execute('INSERT INTO routines VALUES (?,?,?,?,?,?,?,?)', (r['id'], 'professional1', r['patient'], r['frequency'], r['start'], r['end'], r['notes'], int(r['active'])))
-            c.executemany('INSERT INTO routine_exercises VALUES (?,?)', [(r['id'], e) for e in r['exercises']])
-        for l in seed['logs']:
-            c.execute('INSERT INTO logs VALUES (?,?,?,?,?,?,?,?,?)', (l['id'], l['patient'], l['exercise'], l['routine'], l['date'], l['pain'], l['comment'], l['author'], datetime.now(timezone.utc).isoformat()))
-        for m in seed['messages']:
-            c.execute('INSERT INTO messages VALUES (?,?,?,?,?,?)', (m['id'], m['patient'], 'professional1', m['from'], m['text'], m['at']))
+        if not c.execute('SELECT count(*) FROM users').fetchone()[0]:
+            seed_database(c)
+
+def reset_database():
+    """Apaga o banco local e recria os dados de demonstração com datas atuais."""
+    for suffix in ('', '-wal', '-shm'):
+        Path(str(DB_PATH) + suffix).unlink(missing_ok=True)
+    initialize()
+
+def seed_database(c):
+    """Importa seed.json. As datas do arquivo são deslocamentos em dias a partir de hoje."""
+    seed = json.loads((ROOT / 'seed.json').read_text(encoding='utf-8'))
+    base = date.fromisoformat(today())
+    day = lambda offset: (base + timedelta(days=offset)).isoformat()
+    encoded = password_hash('demo123')
+    c.execute('INSERT INTO users VALUES (?,?,?,?,?)', ('professional1', 'Camila Oliveira', 'camila@example.com', encoded, 'professional'))
+    for p in seed['patients']:
+        c.execute('INSERT INTO users VALUES (?,?,?,?,?)', (p['id'], p['name'], p['email'], encoded, 'patient'))
+        c.execute('INSERT INTO patients VALUES (?,?,?,?)', (p['id'], 'professional1', p['goal'], day(p['since'])))
+    for e in seed['exercises']:
+        c.execute('INSERT INTO exercises VALUES (?,?,?,?,?,?,?)', (e['id'], 'professional1', e['name'], e['category'], e['duration'], e['instructions'], e['notes']))
+    names = {p['id']: p['name'] for p in seed['patients']}
+    rng = random.Random(2026)
+    for r in seed['routines']:
+        c.execute('INSERT INTO routines VALUES (?,?,?,?,?,?,?,?)', (r['id'], 'professional1', r['patient'], r['frequency'], day(r['start']), day(r['end']), r['notes'], int(r['active'])))
+        c.executemany('INSERT INTO routine_exercises VALUES (?,?)', [(r['id'], e) for e in r['exercises']])
+        sim = r.get('simulate')
+        if not sim:
+            continue
+        last = min(sim['until'], r['end'])
+        for offset in range(r['start'], last + 1):
+            current = base + timedelta(days=offset)
+            if r['frequency'] != 'Diariamente' and current.weekday() not in (0, 2, 4):
+                continue
+            progress = (offset - r['start']) / max(last - r['start'], 1)
+            for eid in r['exercises']:
+                if rng.random() > sim['adherence']:
+                    continue
+                pain = round(sim['pain_from'] + (sim['pain_to'] - sim['pain_from']) * progress + rng.uniform(-1.2, 1.2))
+                pain = max(0, min(10, pain))
+                comment = rng.choice(seed['comments_high'] if pain >= 6 else seed['comments_low']) if rng.random() < 0.3 else ''
+                c.execute('INSERT INTO logs VALUES (?,?,?,?,?,?,?,?,?)', (new_id(), r['patient'], eid, r['id'], current.isoformat(), pain, comment, names[r['patient']], datetime.now(timezone.utc).isoformat()))
+    for m in seed['messages']:
+        hour, minute = map(int, m['time'].split(':'))
+        local = datetime.combine(base + timedelta(days=m['day']), datetime.min.time(), BRASILIA).replace(hour=hour, minute=minute)
+        c.execute('INSERT INTO messages VALUES (?,?,?,?,?,?)', (m['id'], m['patient'], 'professional1', m['from'], m['text'], local.astimezone(timezone.utc).isoformat()))
 
 @asynccontextmanager
 async def lifespan(app):

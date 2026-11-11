@@ -1,5 +1,7 @@
 # Fisio Acompanha
 
+> **Para a apresentação, use a versão completa em [`sistema-completo/`](sistema-completo/README.md)** (login, banco SQLite, API e interface nova): dê dois cliques em `sistema-completo/RESETAR_DEMO.cmd` no dia e depois use `INICIAR.cmd`. O conteúdo abaixo descreve o protótipo estático antigo em `dist/`.
+
 Protótipo acadêmico do Sistema de Acompanhamento Fisioterapêutico, baseado nos dois documentos da equipe UDF. Interface responsiva em HTML, CSS e JavaScript, sem instalação ou compilação.
 
 ## Abrir
